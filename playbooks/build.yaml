@@ -1,0 +1,26 @@
+---
+- name: provision the cloud virtual machine host
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: build and start cloud virtual machine instances
+      import_role:
+        name: netlab
+        tasks_from: provision
+
+
+- name: provision the virtual machines
+  hosts: hosts
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: build and start the network virtual machines
+      import_role:
+        name: netlab
+        tasks_from: build
+      vars:
+        netlab_nodes_path: "{{ playbook_dir }}/../nodes"
+        netlab_files_path: "{{ playbook_dir }}/../files"
+

@@ -1,0 +1,44 @@
+---
+- name: get all currently running virtual machines
+  virt:
+    command: list_vms
+    state: running
+  register: running_vms
+
+- name: shut down lab virtual machines
+  virt:
+    name: "{{ item }}"
+    state: destroyed
+  loop: "{{ running_vms.list_vms }}"
+
+- name: get all defined virtual machines
+  virt:
+    command: list_vms
+  register: defined_vms
+
+- name: remove lab virtual machines definitions
+  virt:
+    command: undefine
+    name: "{{ item }}"
+  loop: "{{ defined_vms.list_vms }}"
+
+- name: delete virtual machines
+  file:
+    path: "{{ netlab_virt_vm_path }}/{{ item }}"
+    state: absent
+  loop: "{{ defined_vms.list_vms }}"
+
+- name: check for required variable
+  fail:
+    msg: "missing required variable: netlab_host_provider"
+  when: not netlab_host_provider
+
+- name: perform any host shutdown tasks
+  include_tasks: "{{ netlab_host_provider }}/stop.yaml"
+  when: netlab_host_provider != 'baremetal'
+
+- name: clean /virt folder
+  file:
+    path: "{{ netlab_virt_base_path }}"
+    state: absent
+  when: netlab_clean_virt

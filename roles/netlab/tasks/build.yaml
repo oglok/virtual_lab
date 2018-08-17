@@ -1,0 +1,35 @@
+---
+- name: validate host is provisioned
+  include_tasks: includes/prepare_host.yaml
+
+- name: update the default management network
+  include_tasks: includes/build_network.yaml
+  when: netlab_update_default_network | default(False)
+
+- name: load all node definitions
+  find:
+    paths: "{{ netlab_nodes_path }}"
+    patterns: "*.yaml"
+  register: definitions
+  delegate_to: localhost
+  become: no
+
+- name: create nodes fact
+  set_fact:
+    nodes: "{{ nodes | default({}) | combine({item.path | basename| splitext | first: item.path }) }}"
+  loop: "{{ definitions.files }}"
+
+- name: get all currently running virtual machines
+  virt:
+    command: list_vms
+    state: running
+  register: running_vms
+
+- name: build network node on host
+  include_tasks: includes/build_node.yaml
+  with_dict: "{{ nodes }}"
+
+- name: shutdown and remove unknown network virtual machine
+  include_tasks: includes/remove_vm.yaml
+  loop: "{{ running_vms.list_vms }}"
+  when: item not in nodes

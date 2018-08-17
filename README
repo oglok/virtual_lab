@@ -1,0 +1,8 @@
+# virtual networks
+This repository contains Ansible roles and playbooks used to construct a
+virtual network to be used for development and/or demonstration purpooses.  
+The playbooks in this repo support building virtual networks directly on KVM 
+running on either bare metal servers or in virtual machines running on 
+hypervisors that support nested virtualization.
+
+

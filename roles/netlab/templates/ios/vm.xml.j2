@@ -1,0 +1,57 @@
+<domain type='kvm'>
+
+  <name>{{ vm_name }}</name>
+
+  <memory unit='KiB'>4194304</memory>
+  <vcpu placement='static'>2</vcpu>
+
+  <resource>
+    <partition>/machine</partition>
+  </resource>
+
+  <os>
+    <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+
+  <cpu mode='custom' match='exact' check='full'>
+    <model fallback='forbid'>Broadwell-IBRS</model>
+    <feature policy='require' name='hypervisor'/>
+    <feature policy='require' name='xsaveopt'/>
+  </cpu>
+
+  <devices>
+    <emulator>/usr/libexec/qemu-kvm</emulator>
+
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='{{ netlab_virt_vm_path }}/{{ vm_name }}/{{ node.vm_disk }}'/>
+      <target dev='hda' bus='ide'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+    </disk>
+
+    <interface type='bridge'>
+      <mac address='52:54:00:d1:07:8e'/>
+      <source bridge='{{ netlab_mgmt_source_bridge }}'/>
+      <model type='virtio'/>
+    </interface>
+
+    {% for link in node.connections | default([]) %}
+    {% if link.type | default('udp') == 'udp' %}
+    <interface type='udp'>
+      <source address='127.0.0.1' port='{{ link.s_port }}'>
+        <local address='127.0.0.1' port='{{ link.d_port }}'/>
+      </source>
+      <model type='virtio'/>
+    </interface>
+    {% endif %}
+    {% endfor %}
+
+    <serial type='tcp'>
+      <source mode='bind' host='0.0.0.0' service='{{ node.console_port }}' tls='no'/>
+      <protocol type='telnet'/>
+    </serial>
+
+  </devices>
+</domain>
+

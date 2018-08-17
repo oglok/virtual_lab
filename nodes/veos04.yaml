@@ -1,0 +1,27 @@
+---
+ansible_network_os: eos
+enabled: no
+
+vm_disk: vEOS-lab-4.20.1F-combined.qcow2
+console_port: 2004
+
+connections:
+  - type: udp
+    s_port: 10401
+    d_port: 10000
+
+  - type: udp
+    s_port: 10402
+    d_port: 10103
+
+  - type: udp
+    s_port: 10403
+    d_port: 10203
+
+  - type: udp
+    s_port: 10404
+    d_port: 10000
+
+
+
+

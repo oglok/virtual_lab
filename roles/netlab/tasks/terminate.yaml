@@ -1,0 +1,9 @@
+---
+- name: check for required variable
+  fail:
+    msg: "missing required variable: netlab_host_provider"
+  when: not netlab_host_provider
+
+- name: perform any host shutdown tasks
+  include_tasks: "{{ netlab_host_provider }}/terminate.yaml"
+  when: netlab_host_provider != 'baremetal'

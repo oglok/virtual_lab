@@ -1,0 +1,26 @@
+---
+- name: shutdown the network virtual machines
+  hosts: hosts
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: teardown all network virtual machines
+      import_role:
+        name: netlab
+        tasks_from: teardown
+      vars:
+        netlab_clean_virt: yes
+
+
+- name: shutdown the cloud virtual machines
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: terminate the cloud virtual machine instances
+      import_role:
+        name: netlab
+        tasks_from: terminate
+      when: netlab_host_provider != 'baremetal'
+

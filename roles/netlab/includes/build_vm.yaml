@@ -1,0 +1,40 @@
+---
+- name: create image container on remote server
+  file:
+    path: "{{ netlab_virt_images_path }}/{{ node.ansible_network_os }}"
+    state: directory
+
+- name: copy base image vm_disk to image container
+  copy:
+    src: "{{ netlab_files_path }}/{{ node.ansible_network_os }}/{{ node.vm_disk }}"
+    dest: "{{ netlab_virt_images_path }}/{{ node.ansible_network_os }}/{{ node.vm_disk }}"
+
+- name: copy iso image to host
+  copy:
+    src: "{{ netlab_files_path }}/{{ node.ansible_network_os }}/{{ node.cdrom }}"
+    dest: "{{ netlab_virt_iso_path }}/{{ node.cdrom }}"
+  when: "'cdrom' in node"
+
+- name: create virtual machine base folder
+  file:
+    path: "{{ netlab_virt_vm_path }}/{{ vm_name }}"
+    state: directory
+
+- name: copy base image to virtual machine folder
+  copy:
+    src: "{{ netlab_virt_images_path }}/{{ node.ansible_network_os }}/{{ node.vm_disk }}"
+    dest: "{{ netlab_virt_vm_path }}/{{ vm_name }}/{{ node.vm_disk }}"
+    remote_src: yes
+
+- name: create virtual machine
+  virt:
+    name: "{{ vm_name }}"
+    command: define
+    xml: "{{ lookup('template', 'templates/{{ node.ansible_network_os }}/vm.xml.j2') }}"
+  when: vm_name not in running_vms.list_vms
+
+- name: start all virtual machines
+  virt:
+    command: start
+    name: "{{ vm_name }}"
+  when: vm_name not in running_vms.list_vms

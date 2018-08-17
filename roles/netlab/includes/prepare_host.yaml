@@ -1,0 +1,28 @@
+---
+- name: install epel repo
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+    state: present
+
+- name: install all required packages
+  yum:
+    name: "{{ netlab_packages }}"
+    state: present
+  when: inventory_hostname != 'localhost'
+
+- name: start required services
+  service:
+    name: libvirtd
+    state: started
+
+- name: setup base directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ netlab_virt_base_path }}"
+    - "{{ netlab_virt_vm_path }}"
+    - "{{ netlab_virt_images_path }}"
+    - "{{ netlab_virt_iso_path }}"
+
+

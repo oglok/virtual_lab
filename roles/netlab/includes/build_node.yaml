@@ -1,0 +1,18 @@
+---
+- name: load node definition file
+  include_vars:
+    file: "{{ item.value }}"
+    name: node
+
+- name: set the node vm_name fact
+  set_fact:
+    vm_name: "{{ item.key }}"
+
+- name: validate node required values
+  fail:
+    msg: "missing required value: ansible_network_os"
+  when: not node.ansible_network_os
+
+- name: build network virtual machine
+  include_tasks: build_vm.yaml
+  when: node.enabled | default(True)

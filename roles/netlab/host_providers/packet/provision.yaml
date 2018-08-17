@@ -1,0 +1,40 @@
+---
+- name: create host virtual machine
+  packet_device:
+    hostnames: netlab%02d
+    count: "{{ netlab_packet_count | default(1) }}"
+    operating_system: centos_7
+    plan: baremetal_1
+    facility: ewr1
+    user_data: |
+      #cloud-config
+      ssh_authorized_keys:
+        - "{{ lookup('file', netlab_ssh_key_file) }}"
+    project_id: "{{ netlab_packet_project_id }}"
+    auth_token: "{{ netlab_packet_auth_token }}"
+    state: active
+  register: packet
+  delegate_to: localhost
+  become: no
+
+- name: wait for ssh
+  wait_for:
+    delay: 3
+    host: "{{ item.public_ipv4 }}"
+    port: 22
+    state: started
+    timeout: 500
+  with_items: "{{ packet.devices }}"
+  delegate_to: localhost
+  become: no
+
+- name: dynamically add hosts to inventory
+  add_host:
+    name: "{{ item.hostname }}"
+    groups: hosts
+    ansible_host: "{{ item.public_ipv4 }}"
+    ansible_user: root
+    ansible_ssh_private_key_file: "{{ netlab_ssh_private_key_file }}"
+  with_items: "{{ packet.devices }}"
+  delegate_to: localhost
+  become: no

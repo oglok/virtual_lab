@@ -1,0 +1,16 @@
+---
+- name: get all hosts configured for project
+  uri:
+    url: https://api.packet.net/projects/{{ netlab_packet_project_id }}/devices
+    headers:
+      X-Auth-Token: "{{ netlab_packet_auth_token }}"
+      Content-Type: "application/json"
+  register: packet
+
+- name: remove host virtual machine
+  packet_device:
+    device_ids: "{{ item.id }}"
+    project_id: "{{ netlab_packet_project_id }}"
+    auth_token: "{{ netlab_packet_auth_token }}"
+    state: absent
+  with_items: "{{ packet.json.devices }}"

@@ -1,0 +1,10 @@
+#cloud-config
+
+users:
+  - name: ansible
+    gecos: Ansible
+    lock-passwd: false
+    passwd: $1$Ansible$eJa5nPzotVukddz4XSVEv0
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFToOUDGDT27tAsNxBr7Szy4kUbZ146VURWVG7W3WmkKZDA/1pmyjOLNCIgaVrGCirRlaAmceYTNg2L7XUvxwMu2/yRWYveYTXNZIr2IxnPc4ZaoF95uUcZgW051z52hQGShul1DOeZVP8GX1Z2+NU1UTWbEp1cGgK/1YX2wzlC6XnjC4zzrq5LHoscA19gcS2ZC61pByhQyn3fYXd7ndC8MkTXTMoSpYangGGHrK1mfOzO4dXjQxCtPKa0gB9MN9G7cKR7PHvr6+yMyY8ABLlkKm9ifpj2YDllg0nBGeudkKJmWIIW3cv+b4LDq/reDPBnI0NAT5+AvYjWS8/mkLD sprygada@nullroute
+    sudo: ALL=(ALL) NOPASSWD:ALL

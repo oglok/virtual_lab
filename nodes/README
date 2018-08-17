@@ -1,0 +1,8 @@
+# Put network virtual machine definition files here
+
+veos01 10100
+veos02 10200
+veos03 10300
+veos04 10400
+ios01 10500
+ios02 10600

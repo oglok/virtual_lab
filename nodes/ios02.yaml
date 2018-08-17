@@ -1,0 +1,27 @@
+---
+ansible_network_os: ios
+enabled: yes
+
+vm_disk: csr1000v-universalk9.16.08.01a-serial.qcow2
+console_port: 2006
+
+connections:
+  - type: udp
+    s_port: 10601
+    d_port: 10102
+
+  - type: udp
+    s_port: 10602
+    d_port: 10502
+
+  - type: udp
+    s_port: 10603
+    d_port: 10000
+
+  - type: udp
+    s_port: 10604
+    d_port: 10000
+
+
+
+

@@ -1,0 +1,4 @@
+---
+- name: provision base host using host provider
+  include_tasks: "host_providers/{{ netlab_host_provider }}/provision.yaml"
+  when: netlab_host_provider != 'baremetal'

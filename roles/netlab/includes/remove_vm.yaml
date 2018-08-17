@@ -1,0 +1,15 @@
+---
+- name: remove network virtual machines
+  virt:
+    name: "{{ item }}"
+    state: destroyed
+
+- name: remove network virtual machines definitions
+  virt:
+    name: "{{ item }}"
+    command: undefine
+
+- name: delete network virtual machine
+  file:
+    path: "{{ netlab_virt_vm_path }}/{{ item }}"
+    state: absent

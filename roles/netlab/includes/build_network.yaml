@@ -1,0 +1,26 @@
+---
+- name: get current networks
+  virt_net:
+    command: list_nets
+  register: networks
+
+- name: stop and remove the default network
+  virt_net:
+    name: default
+    command: "{{ item }}"
+  with_items:
+    - destroy
+    - undefine
+  when: "'default' in networks.list_nets"
+
+- name: add the new default network definition
+  virt_net:
+    name: default
+    command: define
+    xml: "{{ lookup('template', 'templates/network.xml.j2') }}"
+
+- name: start the default network
+  virt_net:
+    name: default
+    command: start
+    autostart: yes

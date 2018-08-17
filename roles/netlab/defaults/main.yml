@@ -1,0 +1,60 @@
+---
+# defaults file for netlab
+#
+
+netlab_packages:
+  - git
+  - wget
+  - qemu-kvm
+  - qemu-img
+  - virt-manager
+  - libvirt
+  - libvirt-python
+  - libvirt-client
+  - virt-install
+  - virt-viewer
+  - bridge-utils
+  - python-lxml
+  - python-netaddr
+  - ansible
+  - telnet
+
+
+netlab_virt_base_path: /virt
+netlab_virt_vm_path: "{{ netlab_virt_base_path }}/vm"
+netlab_virt_images_path: "{{ netlab_virt_base_path }}/images"
+netlab_virt_iso_path: "{{ netlab_virt_base_path }}/iso"
+
+netlab_clean_virt: no
+
+netlab_mgmt_source_bridge: br0
+
+netlab_nodes_path: "{{ playbook_dir }}/nodes"
+netlab_files_path: "{{ playbook_dir }}/files"
+
+netlab_ssh_private_key_file: null
+netlab_sshkey: null
+
+netlab_libvirt_update_default_network: false
+
+netlab_libvirt_default_dhcp_address: 192.168.0.1
+netlab_libvirt_default_dhcp_mask: 255.255.255.0
+netlab_libvirt_default_dhcp_start: 192.168.0.2
+netlab_libvirt_default_dhcp_end: 192.168.0.254
+
+# Set the name of the host provider to use.  Currently, this variable
+# accepts the following values:
+#
+# * baremetal
+# * packet
+#
+netlab_host_provider: baremetal
+
+
+# Set default values for configuring hosts on Packet
+netlab_packet_project_id: null
+netlab_packet_auth_token: null
+netlab_packet_count: 1
+netlab_packet_plan: baremetal_1
+netlab_packet_facility: ewr1
+
