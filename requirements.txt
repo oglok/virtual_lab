@@ -1,0 +1,8 @@
+---
+- src: ansible-network.network-engine
+
+- src: https://github.com/ansible-network/arista_eos
+  name: ansible-network.arista_eos
+
+- src: https://github.com/ansible-network/cisco_ios
+  name: ansible-network.cisco_ios
