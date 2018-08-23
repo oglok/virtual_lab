@@ -26,6 +26,6 @@ connections:
     s_port: 10205
     d_port: 10000
 
-
+netlab_mgmt_source_bridge: br2
 
 

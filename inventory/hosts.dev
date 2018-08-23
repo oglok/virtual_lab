@@ -2,8 +2,7 @@
 ansible_python_interpreter = python
 
 [hosts]
-dev01
+localhost
 
 [hosts:vars]
 netlab_host_provider = baremetal
-netlab_mmgmt_source_bridge = br0
