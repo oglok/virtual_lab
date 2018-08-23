@@ -24,5 +24,3 @@
     - "{{ netlab_virt_vm_path }}"
     - "{{ netlab_virt_images_path }}"
     - "{{ netlab_virt_iso_path }}"
-
-

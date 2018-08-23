@@ -27,8 +27,6 @@ netlab_virt_iso_path: "{{ netlab_virt_base_path }}/iso"
 
 netlab_clean_virt: no
 
-netlab_mgmt_source_bridge: br0
-
 netlab_nodes_path: "{{ playbook_dir }}/nodes"
 netlab_files_path: "{{ playbook_dir }}/files"
 
