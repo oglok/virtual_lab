@@ -14,12 +14,6 @@
     <boot dev='hd'/>
   </os>
 
-  <cpu mode='custom' match='exact' check='full'>
-    <model fallback='forbid'>Broadwell-IBRS</model>
-    <feature policy='require' name='hypervisor'/>
-    <feature policy='require' name='xsaveopt'/>
-  </cpu>
-
   <devices>
     <emulator>/usr/libexec/qemu-kvm</emulator>
 
