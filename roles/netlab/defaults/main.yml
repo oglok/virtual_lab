@@ -50,6 +50,8 @@ netlab_libvirt_default2_dhcp_end: 192.168.20.254
 netlab_default_ip_ios01: 192.168.10.100
 netlab_default_ip_ios02: 192.168.20.100
 
+netlab_default_ip_veos01: 192.168.10.200
+netlab_default_ip_veos02: 192.168.20.200
 # Set the name of the host provider to use.  Currently, this variable
 # accepts the following values:
 #

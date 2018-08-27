@@ -27,5 +27,4 @@ connections:
     d_port: 10000
 
 netlab_mgmt_source_bridge: br2
-
-
+mac_address: 52:54:00:aa:aa:02

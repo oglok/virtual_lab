@@ -25,6 +25,7 @@
     </disk>
 
     <interface type='bridge'>
+      <mac address='{{ node.mac_address }}'/>
       <source bridge='{{ node.netlab_mgmt_source_bridge }}'/>
       <model type='e1000'/>
     </interface>

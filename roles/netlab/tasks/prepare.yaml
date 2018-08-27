@@ -1,0 +1,29 @@
+---
+- name: Preparing Cisco IOS01
+#  telnet:
+#    host: localhost
+#    port: 2005
+#    prompts:
+#      - "[ios01>|ios01#]"
+#    command:
+#      - "\n"
+#      - enable
+#      - config t
+#      - interface GigabitEthernet 1
+#      - ip address 192.168.122.100 255.255.255.0
+#      - exit
+#  ios_config:
+#    provider:
+#      host: 192.168.122.100
+#      authorize: yes
+#      username: redhat
+#      password: redhat
+#    lines:
+#      - ip address 192.168.122.101 255.255.255.0
+#    parents: "{{ item }}"
+#  with_items:
+#    - interface GigabitEthernet1
+  expect:
+    command: telnet localhost 2005
+    responses: "{{ expect_responses_ios01 }}"
+    echo: yes
