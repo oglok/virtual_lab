@@ -17,10 +17,33 @@
   virt_net:
     name: default
     command: define
-    xml: "{{ lookup('template', 'templates/network.xml.j2') }}"
+    xml: "{{ lookup('template', 'templates/default.xml.j2') }}"
 
 - name: start the default network
   virt_net:
     name: default
     command: start
     autostart: yes
+
+- name: stop and remove the default2 network
+  virt_net:
+    name: default2
+    command: "{{ item }}"
+  with_items:
+    - destroy
+    - undefine
+  when: "'default2' in networks.list_nets"
+
+- name: add the new default2 network definition
+  virt_net:
+    name: default2
+    command: define
+    xml: "{{ lookup('template', 'templates/default2.xml.j2') }}"
+
+- name: start the default2 network
+  virt_net:
+    name: default2
+    command: start
+    autostart: yes
+
+

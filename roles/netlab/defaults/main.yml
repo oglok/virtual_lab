@@ -33,12 +33,22 @@ netlab_files_path: "{{ playbook_dir }}/files"
 netlab_ssh_private_key_file: null
 netlab_sshkey: null
 
-netlab_libvirt_update_default_network: false
+netlab_update_default_networks: true
 
-netlab_libvirt_default_dhcp_address: 192.168.0.1
+netlab_libvirt_default_dhcp_address: 192.168.10.1
 netlab_libvirt_default_dhcp_mask: 255.255.255.0
-netlab_libvirt_default_dhcp_start: 192.168.0.2
-netlab_libvirt_default_dhcp_end: 192.168.0.254
+netlab_libvirt_default_dhcp_start: 192.168.10.2
+netlab_libvirt_default_dhcp_end: 192.168.10.254
+
+netlab_libvirt_default2_dhcp_address: 192.168.20.1
+netlab_libvirt_default2_dhcp_mask: 255.255.255.0
+netlab_libvirt_default2_dhcp_start: 192.168.20.2
+netlab_libvirt_default2_dhcp_end: 192.168.20.254
+
+
+#Set of static IPs for VMs
+netlab_default_ip_ios01: 192.168.10.100
+netlab_default_ip_ios02: 192.168.20.100
 
 # Set the name of the host provider to use.  Currently, this variable
 # accepts the following values:

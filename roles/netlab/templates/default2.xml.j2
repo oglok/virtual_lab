@@ -1,0 +1,16 @@
+<network>
+  <name>default2</name>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='br2' stp='on' delay='0'/>
+  <ip address='{{ netlab_libvirt_default2_dhcp_address }}' netmask='{{ netlab_libvirt_default2_dhcp_mask }}'>
+    <dhcp>
+      <range start='{{ netlab_libvirt_default2_dhcp_start }}' end='{{ netlab_libvirt_default2_dhcp_end }}'/>
+      <host mac='52:54:00:d1:07:02' ip='{{ netlab_default_ip_ios02 }}'/>
+    </dhcp>
+  </ip>
+</network>
+

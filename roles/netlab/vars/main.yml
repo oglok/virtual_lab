@@ -2,3 +2,14 @@
 # vars file for netlab
 #
 
+expect_responses_ios01:
+#  "Escape character is \'^]\'.":
+#    - "\r"
+  'Router>':
+    - enable
+  'Router#':
+    - config t
+  'Router\(config\)#':
+    - interface GigabitEthernet 1
+  'Router\(config-if\)#':
+    - ip address 192.168.122.100 255.255.255.0
