@@ -24,3 +24,12 @@
         netlab_nodes_path: "{{ playbook_dir }}/../nodes"
         netlab_files_path: "{{ playbook_dir }}/../files"
 
+- name: download and run OpenDaylight
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Execute OpenDaylight's role
+      import_role:
+        name: netlab
+        tasks_from: opendaylight

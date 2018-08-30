@@ -1,0 +1,20 @@
+---
+- name: Download OpenDaylight Ansible
+  get_url:
+    url: https://drive.google.com/a/redhat.com/uc?export=download&confirm=fxvW&id=181GHB3DiPs_1aHYzF2PTWVYw9blQDuqH
+    dest: /root/
+    mode: 0755
+
+- name: Install Java 1.8.0 JRE
+  yum:
+    name: java-1.8.0-openjdk
+    state: latest
+
+- name: Extract OpenDaylight zip file
+  unarchive:
+    src: /root/karaf-0.1.0-SNAPSHOT.zip
+    dest: /usr/local/bin
+    mode: 0755
+
+- name: Run OpenDaylight
+  shell: nohup /usr/local/bin/karaf-0.1.0-SNAPSHOT/bin/start &
