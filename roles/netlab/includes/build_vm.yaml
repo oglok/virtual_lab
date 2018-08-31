@@ -9,6 +9,12 @@
     src: "{{ netlab_files_path }}/{{ node.ansible_network_os }}/{{ node.vm_disk }}"
     dest: "{{ netlab_virt_images_path }}/{{ node.ansible_network_os }}/{{ node.vm_disk }}"
 
+- name: copy config image vm_config to image container
+  copy:
+    src: "{{ netlab_files_path }}/{{ node.ansible_network_os }}/{{ node.vm_config }}"
+    dest: "{{ netlab_virt_images_path }}/{{ node.ansible_network_os }}/{{ node.vm_config }}"
+  when: "'vm_config' in node"
+
 - name: copy iso image to host
   copy:
     src: "{{ netlab_files_path }}/{{ node.ansible_network_os }}/{{ node.cdrom }}"
@@ -25,6 +31,13 @@
     src: "{{ netlab_virt_images_path }}/{{ node.ansible_network_os }}/{{ node.vm_disk }}"
     dest: "{{ netlab_virt_vm_path }}/{{ vm_name }}/{{ node.vm_disk }}"
     remote_src: yes
+
+- name: copy config image to virtual machine folder
+  copy:
+    src: "{{ netlab_virt_images_path }}/{{ node.ansible_network_os }}/{{ node.vm_config }}"
+    dest: "{{ netlab_virt_vm_path }}/{{ vm_name }}/{{ node.vm_config }}"
+    remote_src: yes
+  when: "'vm_config' in node"
 
 - name: create virtual machine
   virt:
