@@ -4,6 +4,7 @@ enabled: yes
 
 vm_disk: csr1000v-universalk9.16.08.01a-serial.qcow2
 vm_config: csr_config01.iso
+hostname: ios01
 console_port: 2005
 
 connections:

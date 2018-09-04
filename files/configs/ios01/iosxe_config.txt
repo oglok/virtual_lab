@@ -1,10 +1,10 @@
-hostname ultra-ios_cfg
+hostname ios01
 license smart enable
-username lab privilege 15 password lab
-ip domain-name cisco.com
+username redhat privilege 15 password redhat
+ip domain-name redhat.com
 crypto key generate rsa modulus 1024
 interface GigabitEthernet 1
-ip address 192.168.10.101 255.255.255.0
+ip address 192.168.10.100 255.255.255.0
 no shut
 exit
 ip route 0.0.0.0 0.0.0.0 192.168.10.1

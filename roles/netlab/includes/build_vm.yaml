@@ -4,6 +4,10 @@
     path: "{{ netlab_virt_images_path }}/{{ node.ansible_network_os }}"
     state: directory
 
+- name: create config iso images for cisco routers
+  shell: "mkisofs -l -o {{ netlab_files_path }}/{{ node.ansible_network_os }}/{{ node.vm_config }} {{ netlab_files_path }}/configs/{{ node.hostname }}"
+  when: "node.ansible_network_os  == 'ios'"
+
 - name: copy base image vm_disk to image container
   copy:
     src: "{{ netlab_files_path }}/{{ node.ansible_network_os }}/{{ node.vm_disk }}"
