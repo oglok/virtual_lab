@@ -68,3 +68,4 @@ netlab_packet_count: 1
 netlab_packet_plan: baremetal_1
 netlab_packet_facility: ewr1
 
+netlab_odl: false
