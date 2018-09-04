@@ -1,0 +1,13 @@
+hostname ultra-ios_cfg
+license smart enable
+username lab privilege 15 password lab
+ip domain-name cisco.com
+crypto key generate rsa modulus 1024
+interface GigabitEthernet 1
+ip address 192.168.10.102 255.255.255.0
+no shut
+exit
+ip route 0.0.0.0 0.0.0.0 192.168.10.1
+line vty 0 4
+login local
+exit

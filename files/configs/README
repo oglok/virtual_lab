@@ -1,0 +1,14 @@
+# Overview
+
+This directory contains the configuration files for building
+the initial configuration for IOS devices. By using the Day0
+method we can setup the networking for the devices, allowing
+for the use of `ios` commands from Ansible without needing to
+leverage an awkward `telnet` module.
+
+See https://www.cisco.com/c/en/us/td/docs/routers/csr1000/software/configuration/b_CSR1000v_Configuration_Guide/b_CSR1000v_Configuration_Guide_chapter_0101.pdf on page 9.
+
+# Create Configuration
+
+    mkisofs -l -o ../ios/csr_config01.iso ios01/iosxe_config.txt
+    mkisofs -l -o ../ios/csr_config02.iso ios02/iosxe_config.txt
