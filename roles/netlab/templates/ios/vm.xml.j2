@@ -10,12 +10,17 @@
   </resource>
 
   <os>
-    <type arch='x86_64' machine='pc-i440fx-rhel7.0.0'>hvm</type>
+    <type arch='x86_64' machine='pc'>hvm</type>
     <boot dev='hd'/>
   </os>
 
   <devices>
+    {% if ansible_distribution == "CentOS" %}
     <emulator>/usr/libexec/qemu-kvm</emulator>
+    {% endif %}
+    {% if ansible_distribution == "Fedora" %}
+    <emulator>/usr/bin/qemu-kvm</emulator>
+    {% endif %}
 
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
