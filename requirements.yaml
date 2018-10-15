@@ -6,3 +6,7 @@
 
 - src: https://github.com/ansible-network/cisco_ios
   name: ansible-network.cisco_ios
+
+- src: https://github.com/ansible-odl/l3vpn
+  name: ansible-network.l3vpn
+
